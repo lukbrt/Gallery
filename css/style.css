@@ -1,0 +1,56 @@
+.navbar-bounded
+{
+    padding-left: 15%;
+    padding-right: 15%;
+    margin-bottom: 40px;
+}
+
+#gallery
+{
+    display: grid;
+    justify-content: center;
+    grid-template-columns: auto auto auto;
+    grid-gap: 25px;
+
+    margin-top: 40px;
+}
+
+#gallery img
+{
+    border: 5px dashed rgba(250, 128, 114, .3);
+    border-radius: 0 25px 0 25px;
+    transition: border-radius 1s ease-in-out;
+}
+
+#gallery img:hover
+{
+    border-radius: 25px;
+}
+
+
+#test
+{
+    width: 60px;
+    height: 60px;
+    background-color: yellow;
+    margin: 5px;
+    border-radius: 10px 100px 5px ;
+    transition: all 1s ease-in-out;
+    display: inline-block;
+}
+
+#test:hover
+{
+    transform: rotateX(180deg) rotateY(360deg);
+}
+
+.flex-logo
+{
+    display: flex;
+    align-items: center;
+}
+
+#buttons button
+{
+    margin: 5px;
+}
