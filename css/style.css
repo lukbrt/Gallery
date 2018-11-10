@@ -54,3 +54,15 @@
 {
     margin: 5px;
 }
+
+input[type=file]
+{
+    padding: 10px;
+    margin-bottom: 20px;
+}
+
+.red-border
+{
+    border: 5px solid crimson;
+    border-radius: 30px;
+}
