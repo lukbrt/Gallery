@@ -57,11 +57,12 @@
 
 input[type=file]
 {
+    border: 5px solid transparent;
     padding: 10px;
     margin-bottom: 20px;
 }
 
-.red-border
+input.red-border, .red-border
 {
     border: 5px solid crimson;
     border-radius: 30px;

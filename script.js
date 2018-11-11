@@ -6,6 +6,8 @@
         $imgs = $("#gallery img");
     const tagged = {};
     const $gallery = $("#gallery");
+    const $searchInput = $("#searchInput");
+    const cache = [];
     // const selectedTags = new Set();
 
 
@@ -137,6 +139,30 @@
             }
         }
     }
+
+    $.each($imgs, function (i, img) {
+        const name = $(img).attr('alt').trim().toLowerCase();
+        cache.push({
+            element: img,
+            alt: name
+        });
+    });
+
+    $searchInput.on("input", function() {
+        const typedPhrase = this.value.trim().toLowerCase();
+
+        cache.forEach(img => {
+            // console.log(img.alt.includes(typedPhrase));
+            if (img.alt.includes(typedPhrase))
+                img.element.style.display = '';
+            else
+            img.element.style.display = 'none';
+        });
+
+        // console.log(typedPhrase);
+    });
+
+            cache.forEach(img => console.log(img));
 
     // function getBase64Image(img)
     // {
