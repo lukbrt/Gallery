@@ -27,21 +27,22 @@
     </nav>
 
     <div class="container">
-        <form class="form-inline">
-            <div class="row d-flex justify-content-center">
+        <form class="form-inline row d-flex justify-content-center">
+            <!-- justify-content-center align-self-center -->
+            <div class="row d-flex justify-content-center align-items-center"> 
                 <input type="file" id="inputFile">
-            </div>
-            <div class="form-group">
+            
+            <div class="form-group align-self-center ml-2">
                 <label for="tagSelector">Tag</label>
-                <select class="form-control" id="tagSelector">
+                <select class="form-control mr-2 ml-1" id="tagSelector">
                 </select>
             </div>
 
             <label for="tagName">Name</label>
-            <input type="text" class="form-control" id="tagName" placeholder="alt">
+            <input type="text" class="form-control mr-2 ml-1" id="tagName" placeholder="alt">
 
-            <button type="submit" class="btn btn-primary mb-2" id="submitImage">Add</button>
-        </form>
+            <button type="submit" class="btn btn-outline-success my-2 my-sm-0" id="submitImage">Add</button>
+        </div></form>
 
         <div class="row d-flex justify-content-center">
             <div id="buttons">

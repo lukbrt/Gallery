@@ -8,24 +8,30 @@
     const $gallery = $("#gallery");
     const $searchInput = $("#searchInput");
     const cache = [];
+    const $tagSelector = $("#tagSelector");
     // const selectedTags = new Set();
 
+    function cacheTags() { 
+        const img = this;
+        const tags = $(this).data("tags");
 
-    $imgs.each(function () { 
-         const img = this;
-         const tags = $(this).data("tags");
+        pushTagsIntoCache(img, tags);
+   }
 
-         tags.split(", ").forEach(tag => {
-             if (typeof tagged[tag] === 'undefined')
-             {
-                 tagged[tag] = [];
-             }
+   function pushTagsIntoCache(img, tags) {
+        tags.split(", ").forEach(tag => {
+            if (typeof tagged[tag] === 'undefined')
+            {
+                tagged[tag] = [];
+            }
 
-             tagged[tag].push(img);
-         });
-    });
+            tagged[tag].push(img);
+        });
+   }
 
-    loadPersistedImages();
+    $imgs.each(cacheTags);
+
+    loadPersistedImagesFromStorage();
 
     //display-all button
     const $button = $("<button />", {
@@ -83,7 +89,7 @@
         }).appendTo($buttons);
     });
 
-
+    let $customImg;
     document.getElementById("inputFile").addEventListener('change', e => {
         const file = e.target.files[0];
         if (file.type.includes("image"))
@@ -91,10 +97,10 @@
             $("#inputFile").removeClass("red-border")
             const reader = new FileReader();
             reader.onload = function(ev) {
-                const $customImg = $("<img />");
+                $customImg = $("<img />");
                 $customImg.attr("src", ev.target.result);
-                $gallery.append($customImg); //.hide().fadeIn(800)
-                persistImageAdded($customImg);
+                //                     $gallery.append($customImg); //.hide().fadeIn(800)
+                // persistImage($customImg);
             };
             
             reader.readAsDataURL(file);
@@ -106,7 +112,7 @@
 
     }, false);
 
-    function loadPersistedImages()
+    function loadPersistedImagesFromStorage()
     {
         let $customImg, persistedImage;
         for (let i = 0; i < STORAGE_SIZE; i++)
@@ -123,7 +129,7 @@
         }
     }
 
-    function persistImageAdded(img)
+    function persistImage(img)
     {
         for (let i = 0; i < STORAGE_SIZE; i++)
         {
@@ -150,7 +156,7 @@
 
     $searchInput.on("input", function() {
         const typedPhrase = this.value.trim().toLowerCase();
-
+        $button.click();
         cache.forEach(img => {
             // console.log(img.alt.includes(typedPhrase));
             if (img.alt.includes(typedPhrase))
@@ -161,8 +167,41 @@
 
         // console.log(typedPhrase);
     });
+    
+            // cache.forEach(img => console.log(img));
 
-            cache.forEach(img => console.log(img));
+    (function addTagsIntoList()
+    {
+        const tags = new Set();
+        for (const tag in tagged) {
+            tags.add(tag);
+        }
+        // const tags = $(this).data("tags").split(", ").forEach(tag => tags.add(tag));
+        tags.forEach(tag => {
+            const option = $("<option />", { text: tag });
+            $tagSelector.append(option);
+        });
+
+    }());
+
+    document.getElementById("submitImage").addEventListener("click", e => {
+        e.preventDefault();
+        //TODO
+        const alt = document.getElementById("tagName").value;
+        const tagSel = document.getElementById("tagSelector");
+        const tag = tagSel.value;
+        $customImg.attr("alt", alt).attr("data-tags", tag);
+        if (!$("#inputFile").hasClass("red-border"))
+        {
+            tagged[tag].push($customImg[0]);
+            $gallery.append($customImg);
+            persistImage($customImg);
+            console.log($customImg[0]);
+            console.log($customImg);
+        }
+
+        // $customImg 
+    });
 
     // function getBase64Image(img)
     // {
